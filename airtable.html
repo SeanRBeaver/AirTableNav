@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Control Create3</title>
+        <script src="airtable.browser.js"></script>
+        <style>
+            h1 {
+                text-align: center;
+                margin-top: 3%;
+            }
+
+            p {
+                text-align: center;
+                font-size: 18px;
+                padding-left: 33.5%;
+                padding-right: 33.5%;
+            }
+            
+            button {
+                font-size: 18px;
+                background-color: #008CBA;
+                color: white;
+                padding: 1.75% 3%;
+                border: 1px solid #008CBA;
+                border-radius: 5px;
+                cursor: pointer;
+                min-width: 170px;
+            }
+
+            #buttons {
+                text-align: center;
+                margin-top: 2%;
+            }
+
+            #front, #side, #back, #misc {
+                margin-bottom: 2%;
+            }
+
+            #side {
+                display: flex;
+                justify-content: center;
+                gap: 10%;
+            }
+
+            #misc, #quit {
+                margin-top: 3%;
+                display: flex;
+                justify-content: center;
+                gap: 7%;
+            }
+
+            #misc button {
+                background-color: #04AA6D;
+                border: 1px solid #04AA6D;
+            }
+
+            #quit button {
+                background-color: #f44336;
+                border: 1px solid #f44336;
+            }
+
+        </style>
+    </head>
+    <body>
+        <h1>Control Create3 Robot</h1>
+        <p>Use buttons below or WASD = movement, K = dock, <br/>U = undock, I = IR sensor, Q = quit</p>
+        <div id="buttons">
+            <div id="front">
+                <button onclick="forward()">Forward</button>
+            </div>
+            <div id="side">
+                <button onclick="left()">Left</button>
+
+                <button onclick="right()">Right</button>
+            </div>
+            <div id="back">
+                <button onclick="backward()">Backward</button>
+            </div>
+            <div id="misc">
+                <button onclick="dock()">Dock</button>
+                <button onclick="undock()">Undock</button>
+                <button onclick="irsens()">IR Sensor</button>
+            </div>
+            <div id="quit">
+                <button onclick="stop()">Stop</button>
+                <button onclick="quit()">Quit</button>
+            </div>
+        </div>
+        <script>
+            var Airtable = require("airtable")
+            var base = new Airtable({apiKey: "patwadnSptUQ7irQp.7690f1cb8c15a8f0d884935d11d8ac1a3088fc6b35cd1245a12e09fc2339cb36"}).base("appxYDs8cGdOsn5nH");
+
+            function createRecord(command) {
+                base("Table 1").create([
+                    {
+                        "fields": {
+                            "Command": command,
+                            "Status": "pending"
+                        }
+                    }
+                ], function(err, records) {
+                    if (err) {
+                        alert("Error: " + err);
+                        return;
+                    }
+                })
+            }
+            
+            function forward() {
+                console.log("forward");
+                createRecord("forward");
+            }
+
+            function left() {
+                console.log("left");
+                createRecord("left");
+            }
+
+            function right() {
+                console.log("right");
+                createRecord("right");
+            }
+
+            function backward() {
+                console.log("backward");
+                createRecord("backward");
+            }
+
+            function dock() {
+                console.log("docking");
+                createRecord("dock");
+            }
+
+            function undock() {
+                console.log("undocking");
+                createRecord("undock");
+            }
+
+            function irsens() {
+                console.log("ir sense");
+                createRecord("ir")
+            }
+
+            function stop() {
+                console.log("stopping");
+                createRecord("stop");
+            }
+
+            function quit() {
+                console.log("quit");
+                createRecord("quit");
+            }
+
+            document.addEventListener("keydown", function(){
+                if (event.repeat) {
+                    return;
+                } else if (event.key == "W" || event.key == "w") {
+                    forward();
+                } else if (event.key == "A" || event.key == "a") {
+                    left();
+                } else if (event.key == "S" || event.key == "s") {
+                    backward();
+                } else if (event.key == "D" || event.key == "d") {
+                    right();
+                } else if (event.key == "K" || event.key == "k") {
+                    dock();
+                } else if (event.key == "U" || event.key == "u") {
+                    undock();
+                } else if (event.key == "I" || event.key == "i") {
+                    irsens();
+                } else if (event.key == 'Q' || event.key == 'q') {
+                    quit();
+                } else if (evenet.key == ' ') {
+                    stop(); 
+                }
+            })
+        </script>
+    </body>
+</html>
