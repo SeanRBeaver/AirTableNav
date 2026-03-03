@@ -9,7 +9,7 @@ import json
 
 ''' Put the URL for your Airtable Base here'''
 ''' Format: 'https://api.airtable.com/v0/BaseID/tableName '''
-URL = 'Sbeav'
+URL = 'https://api.airtable.com/v0/appxYDs8cGdOsn5nH/Table%201'
 
 
 ''' Format: {'Authorization':'Bearer Access_Token'}
